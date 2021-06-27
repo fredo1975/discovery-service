@@ -84,7 +84,7 @@ pipeline {
 	   		steps {
 		      	script {
 		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-		      			def ARTIFACT = "dvdtheque-discovery-server-${VERSION}.jar"
+		      			def ARTIFACT = "discovery-service-${VERSION}.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$DEV1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$DEV2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 		      		}
@@ -98,7 +98,7 @@ pipeline {
 	   		steps {
 		      	script {
 		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-		      			def ARTIFACT = "dvdtheque-discovery-server-${VERSION}.jar"
+		      			def ARTIFACT = "discovery-service-${VERSION}.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$PROD1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$PROD2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 		      		}
