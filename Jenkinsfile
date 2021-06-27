@@ -9,6 +9,7 @@ pipeline {
                 returnStdout: true
         )
         def VERSION = getArtifactVersion(GIT_COMMIT_SHORT)
+        def ARTIFACT = "discovery-service-${VERSION}.jar"
 	}
     //agent { label 'slave01' }
 	agent any
@@ -84,7 +85,6 @@ pipeline {
 	   		steps {
 		      	script {
 		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-		      			def ARTIFACT = "discovery-service-${VERSION}.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$DEV1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$DEV2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 		      		}
@@ -98,7 +98,6 @@ pipeline {
 	   		steps {
 		      	script {
 		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-		      			def ARTIFACT = "discovery-service-${VERSION}.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$PROD1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 				        sh "scp discovery-service/target/$ARTIFACT jenkins@$PROD2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 		      		}
