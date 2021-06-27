@@ -23,7 +23,7 @@ pipeline {
                     echo "DEV2_SERVER_IP = ${DEV2_SERVER_IP}"
                     echo "GIT_COMMIT_SHORT = ${GIT_COMMIT_SHORT}"
 					echo "VERSION = ${VERSION}"
-					echo "GIT_BRANCH_NAME = ${GIT_BRANCH_NAME}"
+					echo "ARTIFACT = ${ARTIFACT}"
                 '''
             }
         }
@@ -85,8 +85,8 @@ pipeline {
 	   		steps {
 		      	script {
 		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
-				        sh "scp discovery-service/target/$ARTIFACT jenkins@$DEV1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
-				        sh "scp discovery-service/target/$ARTIFACT jenkins@$DEV2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
+				        sh "scp target/$ARTIFACT jenkins@$DEV1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
+				        sh "scp target/$ARTIFACT jenkins@$DEV2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 		      		}
 		      	}
 		    }
