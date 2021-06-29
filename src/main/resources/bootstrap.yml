@@ -1,8 +1,9 @@
-server:
-  port: 8761
 spring:
   application:
     name: discovery-service
   cloud:
     config:
       fail-fast: true
+      
+server:
+  port: 8761
