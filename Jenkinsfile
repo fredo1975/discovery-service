@@ -35,10 +35,7 @@ pipeline {
 				}
 			}
 		}
-		stage('Build for development') {
-			when {
-                branch 'develop'
-            }
+		stage('Build') {
 			steps {
 				script {
 					withMaven(mavenSettingsConfig: 'MyMavenSettings') {
