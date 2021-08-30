@@ -1,0 +1,16 @@
+server:
+  port: 8761
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+        
+spring:
+  application:
+    name: discovery-service
+  cloud:
+    config:
+      fail-fast: true
+
+        
