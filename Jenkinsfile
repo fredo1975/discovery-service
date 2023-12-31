@@ -38,11 +38,11 @@ pipeline {
 		stage('Build') {
 			steps {
 				script {
-					withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+					withMaven {
 						sh 'env' 
 		      			  sh '''
 					     	mvn -B org.codehaus.mojo:versions-maven-plugin:2.8.1:set -DprocessAllModules -DnewVersion=${VERSION}
-					        mvn -U clean install
+					        mvn -B install -DskipTests
 					     '''
 					}
 				}
@@ -55,7 +55,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 		      			sh "ssh jenkins@$DEV1_SERVER_IP sudo systemctl stop dvdtheque-discovery-server.service"
 			      		sh "ssh jenkins@$DEV2_SERVER_IP sudo systemctl stop dvdtheque-discovery-server.service"
 		      		}
@@ -68,7 +68,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 		      			sh "ssh jenkins@$PROD1_SERVER_IP sudo systemctl stop dvdtheque-discovery-server.service"
 			      		sh "ssh jenkins@$PROD2_SERVER_IP sudo systemctl stop dvdtheque-discovery-server.service"
 		      		}
@@ -81,7 +81,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 				        sh "scp target/$ARTIFACT jenkins@$DEV1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 				        sh "scp target/$ARTIFACT jenkins@$DEV2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 		      		}
@@ -94,7 +94,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 				        sh "scp target/$ARTIFACT jenkins@$PROD1_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 				        sh "scp target/$ARTIFACT jenkins@$PROD2_SERVER_IP:/opt/dvdtheque_discovery_server_service/discovery-service.jar"
 		      		}
@@ -107,7 +107,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 		      			sh "ssh jenkins@$DEV1_SERVER_IP sudo systemctl start dvdtheque-discovery-server.service"
 				        sh "ssh jenkins@$DEV2_SERVER_IP sudo systemctl start dvdtheque-discovery-server.service"
 		      		}
@@ -120,7 +120,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 		      			sh "ssh jenkins@$PROD1_SERVER_IP sudo systemctl start dvdtheque-discovery-server.service"
 				        sh "ssh jenkins@$PROD2_SERVER_IP sudo systemctl start dvdtheque-discovery-server.service"
 		      		}
@@ -133,7 +133,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 		      			sh "ssh jenkins@$DEV1_SERVER_IP sudo systemctl status dvdtheque-discovery-server.service"
 		      			sh "ssh jenkins@$DEV2_SERVER_IP sudo systemctl status dvdtheque-discovery-server.service"
 		      		}
@@ -146,7 +146,7 @@ pipeline {
             }
 	   		steps {
 		      	script {
-		      		withMaven(mavenSettingsConfig: 'MyMavenSettings') {
+		      		withMaven {
 		      			sh "ssh jenkins@$PROD1_SERVER_IP sudo systemctl status dvdtheque-discovery-server.service"
 		      			sh "ssh jenkins@$PROD2_SERVER_IP sudo systemctl status dvdtheque-discovery-server.service"
 		      		}
