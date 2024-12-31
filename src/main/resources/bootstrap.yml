@@ -2,6 +2,11 @@ spring:
   application:
     name: discovery-service
   cloud:
-    config:
-      fail-fast: false
-      uri: ${CONFIG_SERVER_URL:http://localhost:8888}
+      config:
+        uri: http://config-service:8888
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://discovery-service:8761/eureka/

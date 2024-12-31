@@ -91,6 +91,5 @@ COPY --from=extract build/target/extracted/snapshot-dependencies/ ./
 COPY --from=extract build/target/extracted/application/ ./
 
 EXPOSE 8761
-ENV SPRING_PROFILES_ACTIVE=local
-ENV SPRING_CLOUD_CONFIG_LABEL=develop
-ENTRYPOINT [ "java","-Dspring.profiles.active=local","-Dspring.cloud.config.label=develop", "org.springframework.boot.loader.launch.JarLauncher"]
+
+ENTRYPOINT [ "java","-Dspring.profiles.active=local","-Dspring.cloud.config.label=develop","-Djava.security.egd=file:/dev/./urandom", "org.springframework.boot.loader.launch.JarLauncher"]
